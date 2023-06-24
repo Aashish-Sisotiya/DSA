@@ -2,11 +2,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+ 
 // } Driver Code Ends
 class Solution
 {
 public:
-    //it can also be solved with a doubly linked list ;
+    // it can also be solved with a doubly linked list ;
     string FirstNonRepeating(string A)
     {
         // Code here
