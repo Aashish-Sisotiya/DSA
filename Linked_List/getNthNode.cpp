@@ -62,8 +62,7 @@ public:
             return -1;
         if (length == n)
             return head->data;
-        int nodeToFind = length - n + 1;
-        //   nodeToFind--;
+        int nodeToFind = length - n + 1; 
         Node *temp = head;
         while (--nodeToFind)
         {
