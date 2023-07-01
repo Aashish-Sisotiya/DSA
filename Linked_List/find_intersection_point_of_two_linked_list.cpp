@@ -128,7 +128,7 @@ int intersectPoint(Node *headA, Node *headB)
     //! APPROACH 3 Tc--> O(M+N) find the lenght of both the linked list and traverse the linked list which is of bigger lenght till abs(len2-len1)  and then start traversing both the linked list till end, smaller start traversing from the starting and the movement u reach a equal value return it
 
     //! APPROACH 4 use two pointer to traverse both the lined list if u reach a NULL value the point that pointer to the other's head  and continue traversing the linked list till last ot till u get a equal value
-    ? ? if (headA == NULL || headB == NULL) return NULL;
+     if (headA == NULL || headB == NULL) return NULL;
 
     struct Node *temp1 = headA, *temp2 = headB;
 
