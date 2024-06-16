@@ -7,7 +7,7 @@ public:
     vector<int> seg;
     SGTree(int n)
     {
-        seg.resize(n); // Initialize the segment tree with size n
+        seg.resize(4 * n); // Resize to 4*n for safe bounds
     }
     void build(int ind, int low, int high, int arr[])
     {
@@ -16,7 +16,7 @@ public:
             seg[ind] = arr[low];
             return;
         }
-        int mid = low + high / 2;
+        int mid = (low + high) / 2;
         build(2 * ind + 1, low, mid, arr);                  // left child
         build(2 * ind + 2, mid + 1, high, arr);             // right child
         seg[ind] = min(seg[2 * ind + 1], seg[2 * ind + 2]); // storing the minimum value in the segment tree
@@ -24,27 +24,26 @@ public:
 
     int query(int ind, int low, int high, int l, int r)
     {
-        if (low == high)
-        {
-        }
-        // no overlap when  [l,r] < [low,high]  or [low,high] < [l,r]
+        // no overlap
         if (r < low || high < l)
         {
-            return INT_MAX; // returning max value
+            return INT_MAX; // return maximum integer value
         }
 
-        // complete overlap when l>= low and r<=high
+        // complete overlap
         if (low >= l && high <= r)
         {
             return seg[ind];
         }
-        // partial overlap when
-        int mid = low + high / 2;
+
+        // partial overlap
+        int mid = (low + high) / 2;
         int left = query(2 * ind + 1, low, mid, l, r);
         int right = query(2 * ind + 2, mid + 1, high, l, r);
 
         return min(left, right);
     }
+
     void update(int ind, int low, int high, int i, int val)
     {
         if (low == high)
@@ -52,7 +51,7 @@ public:
             seg[ind] = val;
             return;
         }
-        int mid = low + high / 2;
+        int mid = (low + high) / 2;
         if (i <= mid)
         {
             update(2 * ind + 1, low, mid, i, val); // left child
@@ -64,41 +63,6 @@ public:
         seg[ind] = min(seg[2 * ind + 1], seg[2 * ind + 2]);
     }
 };
-void solve()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    int seg[4 * n];
-    // build(0, 0, n - 1, arr, seg); // building the segment tree
-    cout << seg[0] << endl;
-
-    int q;
-    cin >> q;
-    while (--q)
-    {
-        int type;
-        cin >> type;
-        if (type == 1)
-        {
-            int l, r;
-            cin >> l >> r;
-            // cout << query(0, 0, n - 1, l, r, seg); // query for the minimum value in the range [l,r]
-        }
-        else
-        {
-
-            int i, val;
-            cin >> i >> val;
-            // update(0, 0, n - 1, i, val, seg);
-            arr[i] = val; // updating the array
-        }
-    }
-}
 
 void solve2()
 {
@@ -133,10 +97,12 @@ void solve2()
         {
             int l1, r1, l2, r2;
             cin >> l1 >> r1 >> l2 >> r2;
-            ;
-            int min1 = sg1.query(0, 0, n1 - 1, l1, r1); // query for the minimum value in the range [l1,r1] and [l2,r
-            int min2 = sg2.query(0, 0, n2 - 1, l2, r2); // query for the minimum value in the range [l1,r1] and [l2,r
-            cout << min(min1, min2) << endl;
+
+            int min1 = sg1.query(0, 0, n1 - 1, l1, r1);
+            cout << "min1 " << min1 << endl;
+            int min2 = sg2.query(0, 0, n2 - 1, l2, r2);
+            cout << "min2 " << min2 << endl;
+            cout << "min is " << min(min1, min2) << endl;
         }
         else
         {
@@ -144,7 +110,7 @@ void solve2()
             cin >> arrNo >> i >> val;
             if (arrNo == 1)
             {
-                sg1.update(0, 0, n1 - 1, i, val); // update the value at index i in the first array
+                sg1.update(0, 0, n1 - 1, i, val);
             }
             else
             {
@@ -153,8 +119,9 @@ void solve2()
         }
     }
 }
+
 int main()
 {
-
+    solve2();
     return 0;
 }
